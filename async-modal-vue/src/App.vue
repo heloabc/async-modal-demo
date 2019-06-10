@@ -3,6 +3,9 @@
     <div>
       <el-button @click="openModal">open modal</el-button>
     </div>
+    <div style="margin-top: 20px">
+      {{result}}
+    </div>
     <HelloWorld ref="asyncModal"/>
   </div>
 </template>
@@ -12,14 +15,23 @@ import HelloWorld from './components/AsyncModal.vue'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      result: ''
+    }
+  },
   components: {
     HelloWorld
   },
   methods: {
     async openModal() {
       if (this.$refs.asyncModal) {
-        const result = await this.$refs.asyncModal.open();
-        console.log(result)
+        try {
+          const x = await this.$refs.asyncModal.open();
+          this.result = `get result: ${x}`
+        } catch(e) {
+          this.result = `catch error: ${e}`;
+        }
       }
     }
   }
@@ -33,6 +45,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  position: absolute;
+  width: 100%;
+  top: 40%;
 }
 </style>

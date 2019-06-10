@@ -5,10 +5,17 @@ import AsyncModal from './components/async_modal_hoc';
 
 class App extends React.Component {
 
+  state = {
+    result: ''
+  }
   handleOpenModal = async () => {
     if (this.refs.asyncModal) {
-      const result = await this.refs.asyncModal.open();
-      console.log(result)
+      try {
+        const result = await this.refs.asyncModal.open();
+        this.setState({ result: `get result ${result}` })
+      } catch(e) {
+        this.setState({ result: `catch error ${e}` })
+      }
     }
   }
 
@@ -20,6 +27,11 @@ class App extends React.Component {
         >
           Open Modal
         </Button>
+        <div style={{ marginTop: 20 }}>
+          {
+            this.state.result
+          }
+        </div>
         <AsyncModal ref="asyncModal"></AsyncModal>
       </div>
     );
