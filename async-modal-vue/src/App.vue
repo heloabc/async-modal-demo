@@ -28,8 +28,10 @@ export default {
       if (this.$refs.asyncModal) {
         try {
           const x = await this.$refs.asyncModal.open();
+          console.log(x)
           this.result = `get result: ${x}`
         } catch(e) {
+          console.log(e)
           this.result = `catch error: ${e}`;
         }
       }

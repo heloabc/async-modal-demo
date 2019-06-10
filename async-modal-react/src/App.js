@@ -12,8 +12,10 @@ class App extends React.Component {
     if (this.refs.asyncModal) {
       try {
         const result = await this.refs.asyncModal.open();
+        console.log(result)
         this.setState({ result: `get result ${result}` })
       } catch(e) {
+        console.log(e)
         this.setState({ result: `catch error ${e}` })
       }
     }
